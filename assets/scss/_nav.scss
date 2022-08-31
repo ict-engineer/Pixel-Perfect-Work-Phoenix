@@ -1,0 +1,281 @@
+@charset "utf-8";
+
+/* ----------------------------------------
+ナビーメニュー
+----------------------------------------*/
+
+.nav-wrapper {
+    @include flex-center-v;
+
+    a.contact-link {
+	    @include flex-center;
+	    flex-direction: column;
+	    width: 160px;
+	    height: 80px;
+	    margin-left: 22px;
+	    background-color: #0075a9;
+	    text-align: center;
+
+	    @media (max-width: 1280px) {
+	    	margin-left: 10px;
+    		width: 120px;
+	    }
+
+	    i {
+			margin-bottom: 3px;
+		}
+	}
+}
+
+.nav {
+    list-style: none;
+
+    > li {
+	    display: inline-block;
+	    vertical-align: middle;
+	    margin: 0 22px;
+
+	    @media (max-width: 1280px) {
+	    	margin: 0 10px;
+	    }
+
+	    > a {
+	    	display: block;
+	    	padding: 28px 0;
+	    }
+
+	    &:hover {
+	    	> a {
+		    	color: #0075a9;
+		    }
+
+		    .menu-popup {
+		    	opacity: 1;
+		    	visibility: visible;
+		    }
+		}
+	}
+
+	.menu-popup {
+	    position: absolute;
+	    top: 100%;
+	    left: 0;
+	    width: 100%;
+	    background-color: rgba(0, 117, 169, .9);
+	    padding: 38px 0;
+	    opacity: 0;
+	    visibility: hidden;
+	    line-height: 2;
+	    color: #fff;
+	    @include transition-all;
+
+	    a:before {
+		    content: '・';
+		}
+
+	    .popup-inner {
+		    display: flex;
+		    align-items: flex-start;
+		    justify-content: space-around;
+
+		    h3 {
+		    	line-height: 2;
+		    	flex: 0 0 200px;
+		    }
+
+		    ul {
+			    list-style: none;
+			    display: flex;
+    			flex-wrap: wrap;
+    			flex: 1;
+
+    			li {
+    				flex: 0 0 33.33%;
+    			}
+			}
+		}
+
+		a:hover {
+		    text-shadow: 2px 3px 4px rgba(0,0,0,0.5);
+		}
+	}
+}
+
+.page-header {
+    &.header-sticky {
+	    .nav {
+	    	color: #000;
+	    }
+	}
+}
+
+@media (min-width: 1025px) {
+	.nav > li > a.submenu-opener {
+	    display: none;
+	}
+
+	.nav .menu-popup {
+		display: block !important;
+	}
+}
+
+@media (max-width: 1024px) {
+	.nav-wrapper {
+	    position: absolute;
+	    top: 100%;
+	    left: 0;
+	    right: 0;
+	    height: 0;
+	    display: block;
+	    padding: 0 45px;
+    	overflow-y: auto;
+	    opacity: 0;
+	    background-color: #0075a9;
+	    z-index: -1;
+	    @include transition-all;
+
+	    a.contact-link {
+		    width: auto;
+		    margin: 0;
+		    display: inline-block;
+		    font-size: 15px;
+		    height: auto;
+		    padding: 10px 0;
+
+		    i {
+		    	display: none;
+		    }
+		}
+	}
+
+	.nav-open {
+	    width: 80px;
+	    height: 80px;
+	    background-color: #0075a9;
+	    color: #fff;
+	    @include flex-center;
+
+	    span {
+	    	position: relative;
+	    	display: block;
+	    	height: 5px;
+	    	width: 46px;
+	    	border-top: 5px solid;
+
+	    	&:before, &:after {
+	    		content: '';
+	    		display: block;
+	    		position: absolute;
+	    		width: 46px;
+	    		height: 5px;
+	    		border-top: 5px solid;
+	    		left: 0;
+	    		top: -18px;
+	    	}
+
+	    	&:after {
+	    		top: 8px;
+	    	}
+	    }
+	}
+
+	.nav-opened {
+		.page-header {
+			&, &.header-sticky {
+	    		background-color: #0075a9;
+	    	}
+	    }
+
+	    .nav-wrapper {
+	    	height: calc(100vh - 80px);
+	    	opacity: 1;
+	    }
+	}
+
+	.nav {
+		li {
+			display: block;
+			position: relative;
+			color: #fff;
+			font-size: 15px;
+			margin: 0;
+
+			&:hover > a {
+				color: #fff;
+			}
+		}
+
+		.menu-popup {
+		    display: none;
+		    position: static;
+		    background-color: transparent;
+		    visibility: visible;
+		    opacity: 1;
+		    padding: 0;
+
+		    .popup-inner {
+		    	justify-content: flex-start;
+
+		    	h3 {
+			    	display: none;
+			    }
+
+			    ul {
+				    flex-direction: column;
+
+				    li {
+					    flex: 0 0 100%;
+					}
+				}
+			}
+		}
+
+		> li > a {
+		    display: inline-block;
+		    vertical-align: middle;
+		    padding: 10px 0;
+
+		    &.submenu-opener {
+			    width: 30px;
+			    text-align: center;
+			    padding: 5px 0;
+			    margin-left: 5px;
+
+			    &:before {
+				    content: 'V';
+				    font-family: Arial;
+				    font-size: 12px;
+				    font-weight: 400;
+				    display: block;
+				    @include transition-all;
+				}
+
+				&.opened:before {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
+
+	.nav-open span {
+		&, &:after, &:before {
+			@include transition-all;
+		}
+	}
+
+	body.nav-opened .nav-open span {
+	    border-color: transparent;
+
+	    &:after {
+		    transform: rotate(-45deg);
+		    top: -4px;
+		    left: 2px;
+		}
+
+		&:before {
+		    transform: rotate(45deg);
+		    top: -4px;
+		    left: -1px;
+		}
+	}
+}

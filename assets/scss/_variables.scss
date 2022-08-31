@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/* 変数 */
+$color01: #000000;
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-center-v {
+    display: flex;
+    align-items: center;
+}
+
+@mixin transition($attr, $sec, $ease) {
+	-webkit-transition: $attr $sec $ease;
+		-o-transition: $attr $sec $ease;
+			transition: $attr $sec $ease;
+}
+
+@mixin transition-all {
+	@include transition(all, .3s, ease);
+}
